@@ -1,0 +1,41 @@
+version: '2'
+services:
+  app:
+    build: .
+    container_name: node-rest-api-bull
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - REDIS_URL=redis://rp-bull
+    command: npm run dev
+    links:
+      - redis
+    ports:
+      - '3000:3000'
+  database:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: password
+    ports:
+      - '5432:5432'
+    expose:
+      - 5432
+  redis:
+    image: redis
+    container_name: rp-bull
+    ports:
+      - '6379:6379'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    expose:
+      - 6379
+  redis-commander:
+    container_name: node-rest-api-redis-commander
+    image: rediscommander/redis-commander
+    restart: always
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - "8081:8081"
+    depends_on:
+      - redis
