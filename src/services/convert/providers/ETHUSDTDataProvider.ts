@@ -17,8 +17,7 @@ const ROUTER = '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D';
 const RPC = 'https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161';
 //const RPC = 'https://goerli.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161';
 //const RPC = 'https://quiet-cool-water.ethereum-goerli.discover.quiknode.pro/da89a0bd3c28068d4b4f81f5690042f03cc62eab/'
-var walletId = '625932042fb50700077b648edc0de39c';
-var accessToken = 'v2xb129f1dbe8b1ff2f3c11c967f89012b22e1f6b68a80bdd8638019f9c50e54b0f';
+
 
 
 var provider = new ethers.providers.JsonRpcProvider(RPC);

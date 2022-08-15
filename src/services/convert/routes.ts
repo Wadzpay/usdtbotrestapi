@@ -1,26 +1,29 @@
 import { Request, Response } from "express";
 import { decrpytWalletDetails, encrpytWalletDetails, getUSDTFromETH } from "./ConversionETHUSDT";
-import { checkWalletParams } from "../../middleware/checks";
+import { authenticateAndcheckWalletParams } from "../../middleware/checks";
+
 
 export default [
   {
     path: "/api/v1/convert",
-    method: "get",
+    method: "post",
     handler: [
-      checkWalletParams,
-      async ({query}: Request, res: Response) => {
-        const result = await getUSDTFromETH(query.wallAddr, query.privKey, query.gasLimit);
+      authenticateAndcheckWalletParams,
+      async (req: Request, res: Response) => {
+        const reqBody = req.body;
+        const result = await getUSDTFromETH(reqBody.wallAddr, reqBody.privKey, reqBody.gasLimit);
         res.status(200).send(result);
       }
     ]
   },
   {
     path: "/api/v1/encrypt",
-    method: "get",
+    method: "post",
     handler: [
-      checkWalletParams,
-      async ({query}: Request, res: Response) => {
-        const result = await encrpytWalletDetails(query.wallAddr, query.privKey, query.gasLimit);
+      authenticateAndcheckWalletParams,
+      async (req: Request, res: Response) => {
+        const reqBody = req.body;
+        const result = await encrpytWalletDetails(reqBody.wallAddr, reqBody.privKey, reqBody.gasLimit);
         res.status(200).send(result);
       }
      
@@ -28,11 +31,11 @@ export default [
   },
   {
     path: "/api/v1/decrypt",
-    method: "get",
+    method: "post",
     handler: [
-      checkWalletParams,
-      async ({query}: Request, res: Response) => {
-        const result = await decrpytWalletDetails(query.wallAddr, query.privKey, query.gasLimit);
+      authenticateAndcheckWalletParams,
+      async (req: Request, res: Response) => {
+        const result = await decrpytWalletDetails(req.body.wallAddr, req.body.privKey, req.body.gasLimit);
         res.status(200).send(result);
       }
      

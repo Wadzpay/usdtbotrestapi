@@ -5,12 +5,26 @@
   },
   "host": "localhost:3000",
   "basePath": "/api/v1",
-  "schemes": ["http"],
-  "produces": ["application/json"],
+  "schemes": [
+    "http"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "securityDefinitions": {
+    "Authorization": {
+      "type": "apiKey",
+      "name": "authorization",
+      "in": "header",
+      "description": "Authentication token"
+    }
+  },
   "paths": {
     "/search": {
       "get": {
-        "tags": ["Search Text"],
+        "tags": [
+          "Search Text"
+        ],
         "summary": "Search by places using opencagedata service",
         "responses": {
           "200": {
@@ -31,12 +45,19 @@
             "required": true,
             "type": "string"
           }
+        ],
+        "security": [
+          {
+            "Authorization": []
+          }
         ]
       }
     },
     "/convert": {
-      "get": {
-        "tags": ["Convert ETH to USDT"],
+      "post": {
+        "tags": [
+          "Convert ETH to USDT"
+        ],
         "summary": "Convert ETH to USDT with Wallet Address, Private Key and Gas Limit",
         "responses": {
           "200": {
@@ -51,32 +72,38 @@
         },
         "parameters": [
           {
-            "name": "wallAddr",
-            "in": "query",
-            "description": "Specifies Wallet Address",
-            "required": true,
-            "type": "string"
-          },
+            "name": "Convert ETH to USDT",
+            "in": "body",
+            "description": "Request Body for Converting ETH to USDT",
+            "type": "string",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "wallAddr": {
+                  "type": "string"
+                },
+                "privKey": {
+                  "type": "string"
+                },
+                "gasLimit": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "security": [
           {
-            "name": "privKey",
-            "in": "query",
-            "description": "Specifies Private Key",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "gasLimit",
-            "in": "query",
-            "description": "Specifies Gas Limit",
-            "required": true,
-            "type": "string"
+            "Authorization": []
           }
         ]
       }
     },
     "/encrypt": {
-      "get": {
-        "tags": ["Encrypt Wallet Address & Private Key"],
+      "post": {
+        "tags": [
+          "Encrypt Wallet Address & Private Key"
+        ],
         "summary": "Encrypt Wallet Address & Private Key",
         "responses": {
           "200": {
@@ -91,32 +118,38 @@
         },
         "parameters": [
           {
-            "name": "wallAddr",
-            "in": "query",
-            "description": "Specifies Wallet Address",
-            "required": true,
-            "type": "string"
-          },
+            "name": "Encryption",
+            "in": "body",
+            "description": "Request Body for Encryption",
+            "type": "string",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "wallAddr": {
+                  "type": "string"
+                },
+                "privKey": {
+                  "type": "string"
+                },
+                "gasLimit": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "security": [
           {
-            "name": "privKey",
-            "in": "query",
-            "description": "Specifies Private Key",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "gasLimit",
-            "in": "query",
-            "description": "Specifies Gas Limit",
-            "required": false,
-            "type": "string"
+            "Authorization": []
           }
         ]
       }
     },
     "/decrypt": {
-      "get": {
-        "tags": ["Decrypt Wallet Address & Private Key"],
+      "post": {
+        "tags": [
+          "Decrypt Wallet Address & Private Key"
+        ],
         "summary": "Decrypt Wallet Address & Private Key",
         "responses": {
           "200": {
@@ -131,32 +164,38 @@
         },
         "parameters": [
           {
-            "name": "wallAddr",
-            "in": "query",
-            "description": "Specifies Wallet Address",
-            "required": true,
-            "type": "string"
-          },
+            "name": "Decryption",
+            "in": "body",
+            "description": "Request Body for Decryption",
+            "type": "string",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "wallAddr": {
+                  "type": "string"
+                },
+                "privKey": {
+                  "type": "string"
+                },
+                "gasLimit": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "security": [
           {
-            "name": "privKey",
-            "in": "query",
-            "description": "Specifies Private Key",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "gasLimit",
-            "in": "query",
-            "description": "Specifies Gas Limit",
-            "required": false,
-            "type": "string"
+            "Authorization": []
           }
         ]
       }
     },
     "/keywordSearch": {
       "get": {
-        "tags": ["Search Keyword"],
+        "tags": [
+          "Search Keyword"
+        ],
         "summary": "Search by places using opencagedata service",
         "responses": {
           "200": {
@@ -176,6 +215,11 @@
             "description": "Specifies the query string",
             "required": true,
             "type": "string"
+          }
+        ],
+        "security": [
+          {
+            "Authorization": []
           }
         ]
       }

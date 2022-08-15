@@ -96,3 +96,5 @@ const run = async () => {
 
 // eslint-disable-next-line no-console
 run().catch((e) => console.error(e));
+
+app.use(express.json());

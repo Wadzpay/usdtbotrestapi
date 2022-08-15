@@ -11,6 +11,7 @@ export const clientError = (err: Error, res: Response, next: NextFunction) => {
     res.status(err.statusCode).send(err.message);
   } else {
     next(err);
+    console.log(err);
   }
 };
 
