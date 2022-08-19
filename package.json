@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsc-watch --onSuccess \"node ./dist/server.js\""
+    "dev": "tsc-watch --onSuccess \"node ./dist/server.js\"",
+    "build:dev": "tsc-watch && node ./build/index.js"
   },
   "keywords": [],
   "author": "",
