@@ -9,7 +9,7 @@
     "build:dev": "tsc-watch && node ./dist/server.ts"
   },
   "engines": {
-  "npm": "8.17.0",
+  "npm": "8.3.1",
   "node": "16.14.0"
 },
   "keywords": [],
