@@ -569,9 +569,9 @@
     "tweetnacl" "^1.0.3"
     "tweetnacl-util" "^0.15.1"
 
-"@msgpackr-extract/msgpackr-extract-win32-x64@2.1.2":
-  "integrity" "sha512-rIZVR48zA8hGkHIK7ED6+ZiXsjRCcAVBJbm8o89OKAMTmEAQ2QvoOxoiu3w2isAaWwzgtQIOFIqHwvZDyLKCvw=="
-  "resolved" "https://registry.npmjs.org/@msgpackr-extract/msgpackr-extract-win32-x64/-/msgpackr-extract-win32-x64-2.1.2.tgz"
+"@msgpackr-extract/msgpackr-extract-darwin-arm64@2.1.2":
+  "integrity" "sha512-TyVLn3S/+ikMDsh0gbKv2YydKClN8HaJDDpONlaZR+LVJmsxLFUgA+O7zu59h9+f9gX1aj/ahw9wqa6rosmrYQ=="
+  "resolved" "https://registry.npmjs.org/@msgpackr-extract/msgpackr-extract-darwin-arm64/-/msgpackr-extract-darwin-arm64-2.1.2.tgz"
   "version" "2.1.2"
 
 "@noble/hashes@~1.1.1", "@noble/hashes@1.1.2":
@@ -1641,6 +1641,8 @@
     "is-glob" "~4.0.1"
     "normalize-path" "~3.0.0"
     "readdirp" "~3.6.0"
+  optionalDependencies:
+    "fsevents" "~2.3.2"
 
 "chownr@^2.0.0":
   "integrity" "sha512-bIomtDF5KGpdogkLd9VspvFzk9KfpyyGlS8YFVZl7TGPBHL5snIOnxeshwVgPteQ9b4Eydl+pVbIyE1DcvCWgQ=="
@@ -2780,6 +2782,11 @@
   "integrity" "sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw=="
   "resolved" "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   "version" "1.0.0"
+
+"fsevents@~2.3.2":
+  "integrity" "sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA=="
+  "resolved" "https://registry.npmjs.org/fsevents/-/fsevents-2.3.2.tgz"
+  "version" "2.3.2"
 
 "function-bind@^1.1.1":
   "integrity" "sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A=="
@@ -4065,11 +4072,6 @@
   "resolved" "https://registry.npmjs.org/node-addon-api/-/node-addon-api-3.2.1.tgz"
   "version" "3.2.1"
 
-"node-bin-setup@^1.0.0":
-  "integrity" "sha512-pTeU6NgUrexiLNtd+AKwvg6cngHMvj5FZ5e2bbv2ogBSIc9yhkXSSaTScfSRZnwHIh5YFmYSYlemLWkiKD7rog=="
-  "resolved" "https://registry.npmjs.org/node-bin-setup/-/node-bin-setup-1.1.0.tgz"
-  "version" "1.1.0"
-
 "node-cleanup@^2.1.2":
   "integrity" "sha1-esGavSl+Caf3KnFUXZUbUX5N3iw="
   "resolved" "https://registry.npmjs.org/node-cleanup/-/node-cleanup-2.1.2.tgz"
@@ -4100,13 +4102,6 @@
     "async" "^3.2.0"
     "ioredis" "^4.27.0"
     "underscore" "^1.13.1"
-
-"node@^18.7.0":
-  "integrity" "sha512-h5wBtW3jnRfJzAfKldQ3lp9V8EOmbS9EHg00nUlUWWVeMtX8NGyaYB3L+AnPAGNjgWSPPDHcsqJAwlysyGiZ0g=="
-  "resolved" "https://registry.npmjs.org/node/-/node-18.7.0.tgz"
-  "version" "18.7.0"
-  dependencies:
-    "node-bin-setup" "^1.0.0"
 
 "nodemailer@^6.7.7":
   "integrity" "sha512-pOLC/s+2I1EXuSqO5Wa34i3kXZG3gugDssH+ZNCevHad65tc8vQlCQpOLaUjopvkRQKm2Cki2aME7fEOPRy3bA=="
