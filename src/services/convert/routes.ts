@@ -1,9 +1,11 @@
 import { Request, Response } from "express";
 import { decrpytWalletDetails, encrpytWalletDetails, getUSDTFromETH } from "./ConversionETHUSDT";
 import { authenticateAndcheckWalletParams } from "../../middleware/checks";
+import { convertJob } from "../queue/ConvertJob";
 
 
 export default [
+
   {
     path: "/api/v1/convert",
     method: "post",
@@ -11,8 +13,12 @@ export default [
       authenticateAndcheckWalletParams,
       async (req: Request, res: Response) => {
         const reqBody = req.body;
-        const result = await getUSDTFromETH(reqBody.wallAddr, reqBody.privKey, reqBody.gasLimit);
-        res.status(200).send(result);
+        convertJob.convertQueue.add({
+          wallAddr: reqBody.wallAddr,
+          privKey: reqBody.privKey,
+          gasLimit: reqBody.gasLimit
+        }, { delay: 5000, attempts: 3 });
+        res.status(201).json(reqBody.gasLimit);
       }
     ]
   },
@@ -26,7 +32,7 @@ export default [
         const result = await encrpytWalletDetails(reqBody.wallAddr, reqBody.privKey, reqBody.gasLimit);
         res.status(200).send(result);
       }
-     
+
     ]
   },
   {
@@ -38,7 +44,7 @@ export default [
         const result = await decrpytWalletDetails(req.body.wallAddr, req.body.privKey, req.body.gasLimit);
         res.status(200).send(result);
       }
-     
+
     ]
   }
 ];
