@@ -7,7 +7,8 @@ const { ExpressAdapter } = require('@bull-board/express');
 
 const express = require('express');
 
- const app = express();
+import { constants } from "../utils/Constants";
+const app = express();
 
  
 
@@ -16,12 +17,12 @@ const express = require('express');
 export const handleBullBoard = (router:any) => {
 
  const serverAdapter = new ExpressAdapter();
- serverAdapter.setBasePath('/admin/queues');
+ serverAdapter.setBasePath(constants.BULL_SERVER_BASE_PATH);
 
  const { addQueue, removeQueue, setQueues, replaceQueues } = createBullBoard({
   queues: [new BullMQAdapter(convertJob.convertQueue)],
   serverAdapter: serverAdapter,
 });
 
-   router.use("/admin/queues", serverAdapter.getRouter());
+   router.use(constants.BULL_SERVER_BASE_PATH, serverAdapter.getRouter());
 }

@@ -68,11 +68,6 @@ const run = async () => {
   });
 
   app.use('/keywordSearch', (req, res) => {
-    //checkSearchParams,
-      /*async ({ query }: Request, res: Response) => {
-        const result = await getPlacesByName(query.q);
-        res.status(200).send(result);
-      }*/
       
         //const searchMQ = createQueueMQ('SearchQueue');
         console.log('befor calling createQueueMQ');

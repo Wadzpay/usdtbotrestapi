@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import { HTTP400Error, HTTP401Error } from "../utils/httpErrors";
+import { HTTP400Error } from "../utils/httpErrors";
 import { CognitoJwtVerifier } from "aws-jwt-verify";
+import { constants } from "../utils/Constants";
 import { envConfig } from "../config/envConfig";
 
 
@@ -31,7 +32,7 @@ export const authenticateAndcheckWalletParams = async (
   /* Authenticating the authorization token passed in the headers of the API and if authentication successful, then only proceed to next*/
 
   const authHandler = async () => {
-    const accessToken = req.headers["authorization"];
+    const accessToken = req.headers[constants.AUTHORIZATION];
     try {
       // If the token is not valid, an error is thrown:
       let payload = await jwtVerifier.verify(accessToken!);
