@@ -1,4 +1,4 @@
-import { decrypt, encrpyt, getUSDT } from "./providers/ETHUSDTDataProvider";
+import { decrypt, encrpyt, getUSDT } from "./providers/ethusdtdataprovider";
 
 export const getUSDTFromETH = async (walletAddress: any, privateKey: any, gasLimit: any) => {
  

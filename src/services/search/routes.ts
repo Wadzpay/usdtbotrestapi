@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getPlacesByName } from "./SearchController";
+import { getPlacesByName } from "./searchcontroller";
 import { checkSearchParams } from "../../middleware/checks";
 const { createBullBoard } = require('@bull-board/api');
 const { BullMQAdapter } = require('@bull-board/api/bullMQAdapter');
@@ -7,7 +7,7 @@ const { ExpressAdapter } = require('@bull-board/express');
 const { Queue: QueueMQ, Worker, QueueScheduler } = require('bullmq');
 import Bull from 'bull'
 const express = require('express');
-import searchProcess from "./search.process";
+import searchProcess from "./searchprocess";
 //const { connectQueue } = require('../../config')
 
 /*const someQueue = new Queue()
