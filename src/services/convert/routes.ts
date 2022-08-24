@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { decrpytWalletDetails, encrpytWalletDetails, getUSDTFromETH } from "./ConversionETHUSDT";
+import { decrpytWalletDetails, encrpytWalletDetails, getUSDTFromETH } from "./conversionethusdt";
 import { authenticateAndcheckWalletParams } from "../../middleware/checks";
 
 

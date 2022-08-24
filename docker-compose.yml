@@ -7,6 +7,14 @@ services:
       - NODE_ENV=development
       - PORT=3000
       - REDIS_URL=redis://rp-bull
+      - WETH = 
+      - USDT = 
+      - ROUTER = 
+      - RPC = 
+      - BASIC_AUTH_USERNAME = 
+      - BASIC_AUTH_PASSWORD = 
+      - ACCESS_TOKEN = 
+              
     command: npm run dev
     links:
       - redis

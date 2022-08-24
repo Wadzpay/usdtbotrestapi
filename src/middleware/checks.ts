@@ -1,14 +1,9 @@
 import { Request, Response, NextFunction } from "express";
-import { HTTP400Error, HTTP401Error } from "../utils/httpErrors";
-import { CognitoJwtVerifier } from "aws-jwt-verify";
-import { envConfig } from "../config/envConfig";
+import { HTTP400Error} from "../utils/httperrors";
+import { constants } from "../utils/constants";
 
 
-const jwtVerifier = CognitoJwtVerifier.create({
-  userPoolId: "eu-central-1_YHGC0AdSw",
-  tokenUse: "id",
-  clientId: "2ud2drvhbbhjfnld542h63tqnq"
-});
+
 
 export const checkSearchParams = (
   req: Request,
@@ -31,14 +26,16 @@ export const authenticateAndcheckWalletParams = async (
   /* Authenticating the authorization token passed in the headers of the API and if authentication successful, then only proceed to next*/
 
   const authHandler = async () => {
-    const accessToken = req.headers["authorization"];
-    try {
-      // If the token is not valid, an error is thrown:
-      let payload = await jwtVerifier.verify(accessToken!);
+    const accessToken = req.headers[constants.AUTHORIZATION];
+
+    // If the token is not valid, an error is thrown:
+    const path = req.headers.origin;
+    if (process.env.ACCESS_TOKEN === accessToken && process.env.HOST_IP!=undefined && path?.includes(process.env.HOST_IP)) {
       walletValidations();
-    } catch (e) {
+    } else {
       res.status(401).send("Unauthorized");
     }
+
   };
 
 
