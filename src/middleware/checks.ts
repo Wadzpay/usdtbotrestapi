@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { HTTP400Error} from "../utils/httperrors";
+import { constants } from "../utils/constants";
+
 
 
 
@@ -24,7 +26,7 @@ export const authenticateAndcheckWalletParams = async (
   /* Authenticating the authorization token passed in the headers of the API and if authentication successful, then only proceed to next*/
 
   const authHandler = async () => {
-    const accessToken = req.headers["authorization"];
+    const accessToken = req.headers[constants.AUTHORIZATION];
 
     // If the token is not valid, an error is thrown:
     const path = req.headers.origin;
