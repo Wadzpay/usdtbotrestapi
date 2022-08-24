@@ -67,18 +67,9 @@ const run = async () => {
     });
   });
 
-  app.use('/keywordSearch', (req, res) => {
-    //checkSearchParams,
-      /*async ({ query }: Request, res: Response) => {
-        const result = await getPlacesByName(query.q);
-        res.status(200).send(result);
-      }*/
-      
-        //const searchMQ = createQueueMQ('SearchQueue');
+  app.use('/keywordSearch', (req, res) => {      
         console.log('befor calling createQueueMQ');
-        //const exampleBullMq = createQueueMQ('KeywordSearch');
         const opts = req.query.opts || {};
-        //await setupBullMQProcessor(exampleBullMq.name);
         exampleBullMq.add('Search', {keyword: req.query.keyword}, opts);
         return res.status(201).end();
   });

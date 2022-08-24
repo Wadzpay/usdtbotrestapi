@@ -4,7 +4,7 @@ import {
   handleCompression
 } from "./common";
 
-import { handleAPIDocs } from "./apiDocs";
+import { handleAPIDocs } from "./apidocs";
 //import { handleBullBoard } from "./bulldashboard";
 
 export default [

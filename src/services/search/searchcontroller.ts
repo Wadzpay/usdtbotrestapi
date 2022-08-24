@@ -1,4 +1,4 @@
-import { getPlaces } from "./providers/OpenCageDataProvider";
+import { getPlaces } from "./providers/opencagedataprovider";
 
 export const getPlacesByName = async (q: any) => {
   if (q.length < 3) {

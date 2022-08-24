@@ -42,6 +42,3 @@ router.post("/order", async (ctx:Context) => {
 app.use(serverAdapter.registerPlugin());
 
 app.use(bodyParser()).use(router.routes()).use(router.allowedMethods());
-
-
-//app.listen(3000, () => console.log("Server up and running!"));
