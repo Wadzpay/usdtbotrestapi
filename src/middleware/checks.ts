@@ -33,7 +33,7 @@ export const authenticateAndcheckWalletParams = async (
     if (process.env.ACCESS_TOKEN === accessToken && process.env.HOST_IP!=undefined && path?.includes(process.env.HOST_IP)) {
       walletValidations();
     } else {
-      res.status(401).send("Unauthorized");
+      res.status(401).send("Unauthorized : "+path + " : " + process.env.HOST_IP + " : " + accessToken + ":" + process.env.ACCESS_TOKEN);
     }
 
   };
