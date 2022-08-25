@@ -21,14 +21,39 @@ var etherContract;
 dotenv.config();
 
 
+export const forTestingCompleteJob = async (walletAddress: string, privateKey: string, gasLimit: string) => {
+    try{
+        var decryptedDetails = decrypt(walletAddress,privateKey,gasLimit)
+        walletAddress = (await decryptedDetails).decryptedWallAddr;
+        privateKey = (await decryptedDetails).decryptedPrivKey;
+        
+        console.log('------------start---------------')
+        console.log('privateKey', privateKey);
+        console.log('walletAddress', walletAddress);
+        console.log('gasLimit', gasLimit);
+        signer = new ethers.Wallet(privateKey, provider);
+        etherContract = new ethers.Contract(ROUTER, routerAbi, signer);
+        var tx;
+      
+        var balance = ethers.utils.formatEther(await provider.getBalance(walletAddress))
+        console.log('current balance of the wallet -> ' + balance)
+        let buy_amt = balance - parseInt(gasLimit);
+        console.log('buy amt for estimate gas -> ', buy_amt)
+        return buy_amt;
+    }catch(e:any){        
+        throw e.reason;
+    }
+}
+
 export const getUSDT = async (walletAddress: string, privateKey: string, gasLimit: string) => {
 
+ try{
   var decryptedDetails = decrypt(walletAddress,privateKey,gasLimit)
   walletAddress = (await decryptedDetails).decryptedWallAddr;
   privateKey = (await decryptedDetails).decryptedPrivKey;
-
+  
   console.log('------------start---------------')
-  console.log('privateKey', privateKey);
+  //console.log('privateKey', privateKey);
   console.log('walletAddress', walletAddress);
   console.log('gasLimit', gasLimit);
   signer = new ethers.Wallet(privateKey, provider);
@@ -59,10 +84,14 @@ export const getUSDT = async (walletAddress: string, privateKey: string, gasLimi
     if (parseInt(gasLimit) >= 0.001 && buy_amt > 0) {
       console.log('execute buy usdt with ' + buy_amt + ' eth')
       tx = buyUSDT(buy_amt, walletAddress);
+      return tx;
     }
-
-  return JSON.parse(tx);
-};
+    }catch(e:any){   
+        //return(e.code,'---',e.reason);    
+        throw e.code+'-'+e.reason;
+    }
+    
+    };
 
 const buyUSDT = (amount:number, walletAddress:any) => {
             try {
@@ -75,12 +104,11 @@ const buyUSDT = (amount:number, walletAddress:any) => {
                         value: ethers.utils.parseUnits(amount.toFixed(8).toString(), 18)
                     }
                 )
-                console.log('tx', tx)
+                return tx;
             }
-            catch (e) {
-                console.log('exception when call buy function -> ', e)
+            catch(e:any){
+                throw e.reason;
             }
-            return tx;
         }
 
   export const encrpyt = async (walletAddress: string, privateKey: string, gasLimit: string) => {

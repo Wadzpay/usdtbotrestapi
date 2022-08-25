@@ -7,12 +7,12 @@ import routes from "./services";
 
 process.on("uncaughtException", e => {
   console.log(e);
-  process.exit(1);
+  //process.exit(1);
 });
 
 process.on("unhandledRejection", e => {
   console.log(e);
-  process.exit(1);
+  //process.exit(1);
 });
 
 const router = express();
