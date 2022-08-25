@@ -4,7 +4,7 @@ import routerAbi from "../config/router.abi.json";
 const { ChainId, Fetcher, Route, Trade, TokenAmount, TradeType, uniswap } = require ('@uniswap/sdk');
 const ethers = require('ethers');
 const Cryptr = require('cryptr');
-const cryptr = new Cryptr("ethtousdt");
+const cryptr = new Cryptr(process.env.CRYPT_KEY);
 
 
 const WETH = process.env.WETH;

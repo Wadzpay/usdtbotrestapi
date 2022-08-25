@@ -4,7 +4,7 @@ const Queue = require("bull");
 //const { convertProcess } = require(".convert-queue-consumer");
 const defaultJobOptions = { removeOnComplete: false, removeOnFail: false };
 // Our job queue
-const convertQueue = new Queue("dev-queue", {
+const convertQueue = new Queue(process.env.BULL_QUEUE_NAME, {
   redis: process.env.REDIS_URL,
   defaultJobOptions
 });
@@ -24,7 +24,7 @@ const getJobPriority = (ethamout:any) => {
   return ethamout > 100 ? 1 : 2;
 };
 
-convertQueue.process(100, convertProcess);
+convertQueue.process(process.env.QUEUE_CONCURRENCY, convertProcess);
 
 export{
     convertQueue,
