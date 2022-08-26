@@ -1,5 +1,5 @@
 //import { convertJob } from "../services/queue/ConvertJob";
-//import { searchJob } from "../services/queue/SeachJob";
+//import { searchJob }  from "../services/queue/SeachJob";
 
 const { createBullBoard } = require('@bull-board/api');
 const { BullMQAdapter } = require('@bull-board/api/bullMQAdapter');
