@@ -10,7 +10,7 @@ export default [
     method: "post",
     handler: [
       authenticateAndcheckWalletParams,
-      /*async (req: Request, res: Response) => {
+      async (req: Request, res: Response) => {
         try {
         const reqBody = req.body;
         const result = await getUSDTFromETH(reqBody.wallAddr, reqBody.privKey, reqBody.gasLimit);
@@ -18,8 +18,8 @@ export default [
         }catch (e:any) {
           return res.status(500).send(e);
         }
-      }*/
-      async (req: Request, res: Response, next: NextFunction) => {
+      }
+      /*async (req: Request, res: Response, next: NextFunction) => {
         try {
         const reqBody = req.body;
         //console.log('req_body-->',reqBody);
@@ -28,7 +28,7 @@ export default [
       }catch (e) {
         return res.status(500).send("Error Occured while adding Job to Queue");
       }
-      }
+      }*/
     ]
   },
   {
