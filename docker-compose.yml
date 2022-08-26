@@ -14,6 +14,10 @@ services:
       - BASIC_AUTH_USERNAME = 
       - BASIC_AUTH_PASSWORD = 
       - ACCESS_TOKEN = 
+      - HOST_IP =
+      - QUEUE_CONCURRENCY = 
+      - CRYPT_KEY  =
+      - BULL_QUEUE_NAME = 
               
     command: npm run dev
     links:
