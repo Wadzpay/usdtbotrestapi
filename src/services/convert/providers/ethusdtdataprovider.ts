@@ -97,8 +97,10 @@ export const getUSDT = async (walletAddress: string, privateKey: string, ethAmt:
        const gasFee = gasLimitVal * gasPrice / Math.pow(10, 9) + 0.005;
        console.log('Gas Fee...',gasFee);
    
-       console.log('<---Checking Real Buy Amount...')    
-       buy_amt = balance - (gasFee > parseFloat(ethAmt) ? gasFee : parseInt(ethAmt));
+       console.log('<---Checking Real Buy Amount...')  
+       console.log('gas fee to consider -->',gasFee > parseFloat(ethAmt) ? gasFee : parseFloat(ethAmt))  ;
+       
+       buy_amt = balance - (gasFee > parseFloat(ethAmt) ? gasFee : parseFloat(ethAmt));
        console.log('Real buy amt...', buy_amt);
    
        console.log('<---Checking logic for sufficient funds(eth>=0.001 && buy_amt>0) for ETH to USDT conversion...')
