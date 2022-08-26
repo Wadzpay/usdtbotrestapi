@@ -108,8 +108,8 @@ export const getUSDT = async (walletAddress: string, privateKey: string, ethAmt:
          return tx;
        }else{
            console.log('<--Else...Throws error due to in-sufficient funds..');        
-          throw new Error('Conversion Failed Due to Insufficient Balance.');
-          //return "Conversion Failed.";
+          //throw new Error('Conversion Failed Due to Insufficient Balance.');
+          return "Conversion Failed Due to Insufficient Balance.";
        }
        }catch(e:any){   
            console.log('<--Else...Throws error...since something went wrong');
