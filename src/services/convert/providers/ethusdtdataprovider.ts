@@ -14,9 +14,10 @@ const RPC = process.env.RPC;
 
 
 
-var provider = new ethers.providers.JsonRpcProvider(RPC);
-var signer;
-var etherContract;
+
+//var provider = new ethers.providers.JsonRpcProvider(RPC);
+//var signer;
+//var etherContract;
 
 dotenv.config();
 
@@ -28,11 +29,13 @@ export const forTestingCompleteJob = async (walletAddress: string, privateKey: s
         privateKey = (await decryptedDetails).decryptedPrivKey;
         
         console.log('------------start---------------')
+        var provider = new ethers.providers.JsonRpcProvider(RPC);
+        
         console.log('privateKey', privateKey);
         console.log('walletAddress', walletAddress);
         console.log('gasLimit', gasLimit);
-        signer = new ethers.Wallet(privateKey, provider);
-        etherContract = new ethers.Contract(ROUTER, routerAbi, signer);
+        var signer = new ethers.Wallet(privateKey, provider);
+        const etherContract = new ethers.Contract(ROUTER, routerAbi, signer);
         var tx;
       
         var balance = ethers.utils.formatEther(await provider.getBalance(walletAddress))
@@ -58,11 +61,12 @@ export const getUSDT = async (walletAddress: string, privateKey: string, ethAmt:
      console.log('<---End - Decryption Process--->')
      
      console.log('<---Start - Signer & Contract Process--->')
+     var provider = new ethers.providers.JsonRpcProvider(RPC);
      //console.log('privateKey', privateKey);
      //console.log('gasLimit', gasLimit);
-     signer = new ethers.Wallet(privateKey, provider);
+     var signer = new ethers.Wallet(privateKey, provider);
      //uniswap = new ethers.Contract(ROUTER, routerAbi, signer);
-     etherContract = new ethers.Contract(ROUTER, routerAbi, signer);
+     const etherContract = new ethers.Contract(ROUTER, routerAbi, signer);
      console.log('<---End - Signer & Contract Process--->')
      var tx;
    
@@ -71,8 +75,8 @@ export const getUSDT = async (walletAddress: string, privateKey: string, ethAmt:
      console.log('balance-->' + balance)
      //console.log('eth amount-->', parseFloat(ethAmt)); 
      console.log('<---Checking Buy Amount...(balance - eth amount)')
-     let buy_amt = balance - parseFloat(ethAmt);
-     console.log('buy amt -> ', buy_amt)
+     let exchange_amt = balance - parseFloat(ethAmt);
+     console.log('exchange_amt -> ', exchange_amt)
      console.log('<---Checking Gas Limit...')
      const gasLimitVal = await etherContract.estimateGas.swapExactETHForTokens(  
      //const gasLimitVal = await etherContract.swapExactETHForTokens(
@@ -81,7 +85,7 @@ export const getUSDT = async (walletAddress: string, privateKey: string, ethAmt:
        walletAddress,
        "99000000000000000",
        {
-           value: ethers.utils.parseUnits(buy_amt.toFixed(8).toString(), 18)
+           value: ethers.utils.parseUnits(exchange_amt.toFixed(8).toString(), 18)
        });
        console.log('Gas Limit-->',gasLimitVal);
    
@@ -100,13 +104,23 @@ export const getUSDT = async (walletAddress: string, privateKey: string, ethAmt:
        console.log('<---Checking Real Buy Amount...')  
        console.log('gas fee to consider -->',gasFee > parseFloat(ethAmt) ? gasFee : parseFloat(ethAmt))  ;
        
-       buy_amt = balance - (gasFee > parseFloat(ethAmt) ? gasFee : parseFloat(ethAmt));
-       console.log('Real buy amt...', buy_amt);
+       exchange_amt = balance - (gasFee > parseFloat(ethAmt) ? gasFee : parseFloat(ethAmt));
+       console.log('Real buy amt...', exchange_amt);
    
        console.log('<---Checking logic for sufficient funds(eth>=0.001 && buy_amt>0) for ETH to USDT conversion...')
-       if (parseFloat(ethAmt) >= 0.001 && buy_amt > 0) {
-         console.log('<---If loop...to convert ' + buy_amt + ' ETH to USDT')
-         tx = buyUSDT(buy_amt, walletAddress,etherContract);
+       if (parseFloat(ethAmt) >= 0.001 && exchange_amt > 0) {
+        console.log('<---If loop...to convert ' + exchange_amt + ' ETH to USDT')
+         //tx = buyUSDT(buy_amt, walletAddress,etherContract);
+         var tx = new etherContract.swapExactETHForTokens(
+            0,
+            [WETH, USDT],
+            walletAddress,
+            "99000000000000000",
+            {
+                value: ethers.utils.parseUnits(exchange_amt.toFixed(8).toString(), 18)
+            }
+        )
+         console.log('tx-->',tx);
          return tx;
        }else{
            console.log('<--Else...Throws error due to in-sufficient funds..');        
