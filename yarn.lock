@@ -2327,7 +2327,7 @@
     "level-supports" "~1.0.0"
     "xtend" "~4.0.0"
 
-"accepts@^1.3.5", "accepts@~1.3.5", "accepts@~1.3.7", "accepts@~1.3.8":
+"accepts@^1.3.5", "accepts@^1.3.7", "accepts@~1.3.5", "accepts@~1.3.7", "accepts@~1.3.8":
   "integrity" "sha512-PYAthTa2m2VKxuvSD3DPC/Gy+U+sOA1LAuT8mkmRuvw+NACSaeXEQ+NHcVF7rONl6qcaxV3Uuemwawk+7+SJLw=="
   "resolved" "https://registry.npmjs.org/accepts/-/accepts-1.3.8.tgz"
   "version" "1.3.8"
@@ -3588,15 +3588,15 @@
   "resolved" "https://registry.npmjs.org/denque/-/denque-1.5.1.tgz"
   "version" "1.5.1"
 
+"depd@^1.1.0", "depd@~1.1.2":
+  "integrity" "sha1-m81S4UwJd2PnSbJ0xDRu0uVgtak="
+  "resolved" "https://registry.npmjs.org/depd/-/depd-1.1.2.tgz"
+  "version" "1.1.2"
+
 "depd@^2.0.0":
   "integrity" "sha512-g7nH6P6dyDioJogAAGprGpCtVImJhpPk/roCzdb3fIh61/s/nPsfR6onyMwkCAR/OlC3yBC0lESvUoQEAssIrw=="
   "resolved" "https://registry.npmjs.org/depd/-/depd-2.0.0.tgz"
   "version" "2.0.0"
-
-"depd@~1.1.2":
-  "integrity" "sha1-m81S4UwJd2PnSbJ0xDRu0uVgtak="
-  "resolved" "https://registry.npmjs.org/depd/-/depd-1.1.2.tgz"
-  "version" "1.1.2"
 
 "depd@~2.0.0":
   "integrity" "sha512-g7nH6P6dyDioJogAAGprGpCtVImJhpPk/roCzdb3fIh61/s/nPsfR6onyMwkCAR/OlC3yBC0lESvUoQEAssIrw=="
@@ -4308,7 +4308,7 @@
   "resolved" "https://registry.npmjs.org/fp-ts/-/fp-ts-1.19.3.tgz"
   "version" "1.19.3"
 
-"fresh@~0.5.2", "fresh@0.5.2":
+"fresh@^0.5.2", "fresh@~0.5.2", "fresh@0.5.2":
   "integrity" "sha1-PYyt2Q2XZWn6g1qx+OSyOhBWBac="
   "resolved" "https://registry.npmjs.org/fresh/-/fresh-0.5.2.tgz"
   "version" "0.5.2"
@@ -5930,7 +5930,7 @@
   "resolved" "https://registry.npmjs.org/memorystream/-/memorystream-0.3.1.tgz"
   "version" "0.3.1"
 
-"merge-descriptors@1.0.1":
+"merge-descriptors@^1.0.1", "merge-descriptors@1.0.1":
   "integrity" "sha1-sAqqVW3YtEVoFQ7J0blT8/kMu2E="
   "resolved" "https://registry.npmjs.org/merge-descriptors/-/merge-descriptors-1.0.1.tgz"
   "version" "1.0.1"
@@ -5985,7 +5985,7 @@
   dependencies:
     "mime-db" "1.52.0"
 
-"mime@1.4.1":
+"mime@^1.3.4", "mime@1.4.1":
   "integrity" "sha512-KI1+qOZu5DcW6wayYHSzR/tXKCDC5Om4s1z2QJjDULzLcmf3DvzS7oluY4HCTrc+9FiKmWUgeNLg7W3uIQvxtQ=="
   "resolved" "https://registry.npmjs.org/mime/-/mime-1.4.1.tgz"
   "version" "1.4.1"
@@ -6204,6 +6204,22 @@
   "integrity" "sha512-O5lz91xSOeoXP6DulyHfllpq+Eg00MWitZIbtPfoSEvqIHdl5gfcY6hYzDWnj0qD5tz52PI08u9qUvSVeUBeHw=="
   "resolved" "https://registry.npmjs.org/node-int64/-/node-int64-0.4.0.tgz"
   "version" "0.4.0"
+
+"node-mocks-http@^1.11.0":
+  "integrity" "sha512-jS/WzSOcKbOeGrcgKbenZeNhxUNnP36Yw11+hL4TTxQXErGfqYZ+MaYNNvhaTiGIJlzNSqgQkk9j8dSu1YWSuw=="
+  "resolved" "https://registry.npmjs.org/node-mocks-http/-/node-mocks-http-1.11.0.tgz"
+  "version" "1.11.0"
+  dependencies:
+    "accepts" "^1.3.7"
+    "content-disposition" "^0.5.3"
+    "depd" "^1.1.0"
+    "fresh" "^0.5.2"
+    "merge-descriptors" "^1.0.1"
+    "methods" "^1.1.2"
+    "mime" "^1.3.4"
+    "parseurl" "^1.3.3"
+    "range-parser" "^1.2.0"
+    "type-is" "^1.6.18"
 
 "node-redis-dump2@0.5.0":
   "integrity" "sha512-rG54sksxPvNB0/1tsUESVBhapzCX0yAIwW2cv3k0jFK01nc0Zu/yaHGC28tCk6DHDVs9+kCFdAWewMrslJTrEA=="
@@ -6429,7 +6445,7 @@
     "json-parse-even-better-errors" "^2.3.0"
     "lines-and-columns" "^1.1.6"
 
-"parseurl@^1.3.2", "parseurl@~1.3.2", "parseurl@~1.3.3":
+"parseurl@^1.3.2", "parseurl@^1.3.3", "parseurl@~1.3.2", "parseurl@~1.3.3":
   "integrity" "sha512-CiyeOxFT/JZyN5m0z9PfXw4SCBJ6Sygz1Dpl0wqjlhDEGGBP1GnsUVEL0p63hoG1fcj3fHynXi9NYO4nWOL+qQ=="
   "resolved" "https://registry.npmjs.org/parseurl/-/parseurl-1.3.3.tgz"
   "version" "1.3.3"
@@ -6632,7 +6648,7 @@
   dependencies:
     "safe-buffer" "^5.1.0"
 
-"range-parser@~1.2.0", "range-parser@~1.2.1":
+"range-parser@^1.2.0", "range-parser@~1.2.0", "range-parser@~1.2.1":
   "integrity" "sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg=="
   "resolved" "https://registry.npmjs.org/range-parser/-/range-parser-1.2.1.tgz"
   "version" "1.2.1"
@@ -7772,7 +7788,7 @@
   "resolved" "https://registry.npmjs.org/type-fest/-/type-fest-0.7.1.tgz"
   "version" "0.7.1"
 
-"type-is@^1.6.16", "type-is@~1.6.16", "type-is@~1.6.17", "type-is@~1.6.18":
+"type-is@^1.6.16", "type-is@^1.6.18", "type-is@~1.6.16", "type-is@~1.6.17", "type-is@~1.6.18":
   "integrity" "sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g=="
   "resolved" "https://registry.npmjs.org/type-is/-/type-is-1.6.18.tgz"
   "version" "1.6.18"
