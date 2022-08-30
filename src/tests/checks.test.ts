@@ -20,7 +20,9 @@ describe('Authenticate and validate Wallet Params', function () {
     },
   });
 
-  let res = nodeMocks.createResponse({});
+  let res = nodeMocks.createResponse({
+    status : 200
+  });
 
 
     afterAll(() => {
@@ -34,9 +36,33 @@ describe('Authenticate and validate Wallet Params', function () {
 
       process.env.ACCESS_TOKEN = "authorizationToken";
       process.env.HOST_IP = "http://localhost";
-      let result =checks.authenticateAndcheckWalletParams(req, res, next);
-      console.log(result);
-      //expect(result).toBe(7);   
+      checks.authenticateAndcheckWalletParams(req, res, next);
+      expect(res.statusCode).toBe(200);   
+    });
+
+    it('authentication failed', function () {
+
+      process.env.ACCESS_TOKEN = "authorizationTojdshhdwfken";
+      process.env.HOST_IP = "http://localhost";
+      checks.authenticateAndcheckWalletParams(req, res, next);
+      expect(res.statusCode).toBe(401);   
+    });
+
+    it('validate wallet params failed', function () {
+
+      process.env.ACCESS_TOKEN = "authorizationToken";
+      process.env.HOST_IP = "http://localhost";
+      req.body.wallAddr = null;
+      checks.authenticateAndcheckWalletParams(req, res, next);
+      expect(res.statusCode).toBe(400);   
+    });
+
+    it('authentication failed using host ip', function () {
+
+      process.env.ACCESS_TOKEN = "authorizationToken";
+      process.env.HOST_IP = "http://localh==ost";
+      checks.authenticateAndcheckWalletParams(req, res, next);
+      expect(res.statusCode).toBe(401);   
     });
 
   });
