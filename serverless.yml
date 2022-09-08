@@ -1,0 +1,22 @@
+service: conversion-api
+frameworkVersion: '3'
+
+plugins:
+  - serverless-webpack
+
+package:
+  individually: true
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  stage: dev
+  region: eu-central-1
+
+functions:
+  conversion-lambda:
+    handler: app.handler
+    events:
+      - httpApi:
+          path: /
+          method: get
