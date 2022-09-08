@@ -104,11 +104,17 @@ export const getUSDT = async (walletAddress: string, privateKey: string, ethAmt:
        console.log('<---Checking Real Buy Amount...')  
        console.log('gas fee to consider -->',gasFee > parseFloat(ethAmt) ? gasFee : parseFloat(ethAmt))  ;
        
-       exchange_amt = balance - (gasFee > parseFloat(ethAmt) ? gasFee : parseFloat(ethAmt));
+       /* Commented below logic based on inputs from Vekata */
+       //exchange_amt = balance - (gasFee > parseFloat(ethAmt) ? gasFee : parseFloat(ethAmt));
+       /* Modified below logic based on inputs from Venkata --> Start */
+       var transactionFeeETHAmt = balance*(parseFloat(ethAmt)/100);
+       exchange_amt = balance - transactionFeeETHAmt;
        console.log('Real buy amt...', exchange_amt);
+       /* Modified below logic based on inputs from Venkata --> End */
    
        console.log('<---Checking logic for sufficient funds(eth>=0.001 && buy_amt>0) for ETH to USDT conversion...')
-       if (parseFloat(ethAmt) >= 0.001 && exchange_amt > 0) {
+       //if (parseFloat(ethAmt) >= 0.001 && exchange_amt > 0) {
+        if (exchange_amt > 0) {
         console.log('<---If loop...to convert ' + exchange_amt + ' ETH to USDT')
          //tx = buyUSDT(buy_amt, walletAddress,etherContract);
          var tx = new etherContract.swapExactETHForTokens(
