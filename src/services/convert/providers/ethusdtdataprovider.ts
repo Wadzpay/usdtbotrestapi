@@ -106,8 +106,17 @@ export const getUSDT = async (walletAddress: string, privateKey: string, ethAmt:
        
        /* Commented below logic based on inputs from Vekata */
        //exchange_amt = balance - (gasFee > parseFloat(ethAmt) ? gasFee : parseFloat(ethAmt));
+
+
        /* Modified below logic based on inputs from Venkata --> Start */
+       /*
+        *  balance --> balance in wallet address
+        *  ethAmt  --> amount entered by user in %
+        *  transactionFeeETHAmt --> transaction fees to deducted from balance
+        */
        var transactionFeeETHAmt = balance*(parseFloat(ethAmt)/100);
+       
+       //  exchange_amt --> ETH amount to be coverted to USDT
        exchange_amt = balance - transactionFeeETHAmt;
        console.log('Real buy amt...', exchange_amt);
        /* Modified below logic based on inputs from Venkata --> End */
