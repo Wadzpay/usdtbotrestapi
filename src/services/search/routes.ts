@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import { getPlacesByName } from "./searchcontroller";
 import { checkSearchParams } from "../../middleware/checks";
-const { createBullBoard } = require('@bull-board/api');
+/*const { createBullBoard } = require('@bull-board/api');
 const { BullMQAdapter } = require('@bull-board/api/bullMQAdapter');
 const { ExpressAdapter } = require('@bull-board/express');
 const { Queue: QueueMQ, Worker, QueueScheduler } = require('bullmq');
-import Bull from 'bull'
+import Bull from 'bull'*/
 const express = require('express');
 import searchProcess from "./searchprocess";
 //const { connectQueue } = require('../../config')
@@ -46,7 +46,7 @@ const redisOptions = {
 
 //const createQueueMQ = (searchQueue:string) => new Bull(searchQueue, process.env.REDIS_URL);
 
-const searchQueue = new Bull('search', { redis: redisOptions });
+//const searchQueue = new Bull('search', { redis: redisOptions });
 
 /*async function setupBullMQProcessor(searchQueue:string) {
   const queueScheduler = new QueueScheduler(searchQueue, {
@@ -93,11 +93,11 @@ export default [
         //await setupBullMQProcessor(exampleBullMq.name);
         exampleBullMq.add('Search', {q: query.q}, opts);*/
         const searchKeyword = (data:any) => {
-          searchQueue.add(data,{q: query.q})
+          //searchQueue.add(data,{q: query.q})
         }
         
         //consumer
-        searchQueue.process(searchProcess);
+        //searchQueue.process(searchProcess);
         return res.status(201).end();
     }
     ]
