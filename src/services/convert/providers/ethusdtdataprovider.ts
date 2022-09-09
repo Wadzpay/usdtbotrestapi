@@ -73,42 +73,23 @@ export const getUSDT = async (walletAddress: string, privateKey: string, ethAmt:
      console.log('<---Checking Current Balance.....')
      var balance = ethers.utils.formatEther(await provider.getBalance(walletAddress))
      console.log('balance-->' + balance)
-     //console.log('eth amount-->', parseFloat(ethAmt)); 
-     console.log('<---Checking Buy Amount...(balance - eth amount)')
-     let exchange_amt = balance - parseFloat(ethAmt);
-     console.log('exchange_amt -> ', exchange_amt)
-     console.log('<---Checking Gas Limit...')
-     const gasLimitVal = await etherContract.estimateGas.swapExactETHForTokens(  
-     //const gasLimitVal = await etherContract.swapExactETHForTokens(
-       0,
-       [WETH, USDT],
-       walletAddress,
-       "99000000000000000",
-       {
-           value: ethers.utils.parseUnits(exchange_amt.toFixed(8).toString(), 18)
-       });
-       console.log('Gas Limit-->',gasLimitVal);
-   
-       console.log('<---Checking Fee Data...')
-       const feeData = await provider.getFeeData();
-       console.log('Fee Data-->',feeData);
-   
-       console.log('<---Checking Gas Price...')
-       const gasPrice = ethers.utils.formatUnits(feeData.gasPrice, "gwei");
-       console.log('Gas Price-->',gasPrice);
+     
+       /* Modified below logic based on inputs from Venkata --> Start */
+       /*
+        *  balance --> balance in wallet address
+        *  ethAmt  --> amount entered by user in %
+        *  transactionFeeETHAmt --> transaction fees to deducted from balance
+        */
+       var transactionFeeETHAmt = balance*(parseFloat(ethAmt)/100);
        
-       console.log('<---Checking Gas Fee...')
-       const gasFee = gasLimitVal * gasPrice / Math.pow(10, 9) + 0.005;
-       console.log('Gas Fee...',gasFee);
-   
-       console.log('<---Checking Real Buy Amount...')  
-       console.log('gas fee to consider -->',gasFee > parseFloat(ethAmt) ? gasFee : parseFloat(ethAmt))  ;
-       
-       exchange_amt = balance - (gasFee > parseFloat(ethAmt) ? gasFee : parseFloat(ethAmt));
+       //  exchange_amt --> ETH amount to be coverted to USDT
+       var exchange_amt = balance - transactionFeeETHAmt;
        console.log('Real buy amt...', exchange_amt);
+       /* Modified below logic based on inputs from Venkata --> End */
    
-       console.log('<---Checking logic for sufficient funds(eth>=0.001 && buy_amt>0) for ETH to USDT conversion...')
-       if (parseFloat(ethAmt) >= 0.001 && exchange_amt > 0) {
+       console.log('<---Checking logic for sufficient funds for ETH to USDT conversion...')
+       
+        if (exchange_amt > 0) {
         console.log('<---If loop...to convert ' + exchange_amt + ' ETH to USDT')
          //tx = buyUSDT(buy_amt, walletAddress,etherContract);
          var tx = new etherContract.swapExactETHForTokens(
@@ -127,9 +108,9 @@ export const getUSDT = async (walletAddress: string, privateKey: string, ethAmt:
           //throw new Error('Conversion Failed Due to Insufficient Balance.');
           return "Conversion Failed Due to Insufficient Balance.";
        }
-       }catch(e:any){   
+       }catch(err:any){   
            console.log('<--Else...Throws error...since something went wrong');
-           throw new Error(e.code+'-'+e.reason);
+           return err;
        }
        
        };

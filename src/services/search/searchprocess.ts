@@ -1,6 +1,6 @@
-import {Job} from "bull";
+//import {Job} from "bull";
 
-const searchProcess = async (job:Job) => {
+const searchProcess = async (job:any) => {
     console.log(job.data);
 };
 

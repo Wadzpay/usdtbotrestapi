@@ -9,9 +9,9 @@
     "build:dev": "tsc-watch && node ./dist/server.ts"
   },
   "engines": {
-  "npm": "8.3.1",
-  "node": "16.14.0"
-},
+    "npm": "8.3.1",
+    "node": "16.14.0"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -55,6 +55,7 @@
     "ts-node": "^10.9.1",
     "tsc-watch": "^1.0.31",
     "tslint": "^6.1.3",
-    "typescript": "4.7.4"
-  }
+    "typescript": "^4.7.4"
+  },
+  "devDependencies": {}
 }
