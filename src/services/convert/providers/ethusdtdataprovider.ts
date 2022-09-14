@@ -1,5 +1,6 @@
 import request from "request-promise";
 import dotenv from "dotenv";
+dotenv.config();
 import routerAbi from "../config/router.abi.json";
 const { ChainId, Fetcher, Route, Trade, TokenAmount, TradeType, uniswap } = require('@uniswap/sdk');
 const ethers = require('ethers');
