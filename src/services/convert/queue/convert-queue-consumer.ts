@@ -9,7 +9,7 @@ const convertProcess = async (job:any, done:any) => {
       const{wallAddr, privKey, gasLimit} = job.data;
       if(wallAddr&&privKey&&gasLimit){
         console.log('<==== convert the given currency ===>')
-        await getUSDTFromETH(job.data.wallAddr, job.data.privKey, job.data.gasLimit);
+        await getUSDTFromETH(job.data);
         done();  
 
       }
