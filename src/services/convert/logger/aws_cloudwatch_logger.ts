@@ -30,7 +30,7 @@ console.log('log level....',logger.level);
 
 var config = {  
   logGroupName: process.env.CLOUDWATCH_GROUP_NAME,
-  logStreamName: NODE_ENV,
+  logStreamName: `${process.env.CLOUDWATCH_GROUP_NAME}-${process.env.NODE_ENV}`,
   createLogGroup: false,
   createLogStream: true,
   awsConfig: AWSConfig,
