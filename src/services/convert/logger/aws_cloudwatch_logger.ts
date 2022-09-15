@@ -30,11 +30,13 @@ console.log('log level....',logger.level);
 
 var config = {  
   logGroupName: process.env.CLOUDWATCH_GROUP_NAME,
-  logStreamName: `${process.env.CLOUDWATCH_GROUP_NAME}-${process.env.NODE_ENV}`,
-  awsAccessKeyId: process.env.AWS_ACCESS_KEY,
-  awsSecretKey: process.env.AWS_SECRET_KEY,
-  awsRegion: process.env.AWS_REGION,
-  messageFormatter: ( level: any, message: any, additionalInfo: any ) =>  `[${level}] : ${message} \nAdditional Info: ${JSON.stringify(additionalInfo)}}`
+  logStreamName: NODE_ENV,
+  createLogGroup: false,
+  createLogStream: true,
+  awsConfig: AWSConfig,
+  formatLog: function (item:any) {
+    return item.level + ': ' + item.message + ' ' + JSON.stringify(item.meta)
+  }
 }
 
 if (NODE_ENV != 'dev') logger.add(new WinstonCloudWatch(config));

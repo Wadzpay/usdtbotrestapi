@@ -104,13 +104,14 @@ export const getUSDT = async (reqBody:any) => {
         var ethAmt = reqBody.gasLimit;
         //logger.log('info', `Inside getUSDT`);
         //console.log('Wallet Address-->', walletAddress);
-        logger.log('info',`Wallet Address...`,{ tags: 'ethusdtdataprovider.getUSDT', additionalInfo: { body: walletAddress } })
+        
         //console.log('ETH to be converted-->', ethAmt);
-        logger.log('info',`ETH to be converted...`,{ tags: 'ethusdtdataprovider.getUSDT', additionalInfo: { body: ethAmt } })
+        logger.log('info',`ETH to be converted...${ethAmt}`,{ tags: 'ethusdtdataprovider.getUSDT', additionalInfo: { body: ethAmt } })
 
         logger.log('info','<---Start - Decryption Process--->',{ tags: 'ethusdtdataprovider.getUSDT'})
         var decryptedDetails = decrypt(reqBody)
         walletAddress = (await decryptedDetails).decryptedWallAddr;
+        logger.log('info',`Wallet Address...${walletAddress}`,{ tags: 'ethusdtdataprovider.getUSDT', additionalInfo: { body: walletAddress } })
         privateKey = (await decryptedDetails).decryptedPrivKey;
         logger.log('info','<---End - Decryption Process--->',{ tags: 'ethusdtdataprovider.getUSDT'})
 
@@ -127,7 +128,7 @@ export const getUSDT = async (reqBody:any) => {
         logger.log('info','<---Checking Current Balance--->',{ tags: 'ethusdtdataprovider.getUSDT'})
         
         var balance = ethers.utils.formatEther(await provider.getBalance(walletAddress))
-        logger.log('info','balance.....',{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{balance: balance}})
+        logger.log('info',`balance.....${balance}`,{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{balance: balance}})
 
         /* Modified below logic based on inputs from Venkata --> Start */
         /*
@@ -136,11 +137,11 @@ export const getUSDT = async (reqBody:any) => {
          *  transactionFeeETHAmt --> transaction fees to deducted from balance
          */
         var transactionFeeETHAmt = balance * (parseFloat(ethAmt) / 100);
-        logger.log('info','balance*(ethAmt/100).....',{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{transactionFeeETHAmt: transactionFeeETHAmt}})
+        logger.log('info',`transactionFeeETHAmt.....${transactionFeeETHAmt}`,{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{transactionFeeETHAmt: transactionFeeETHAmt}})
         
         //  exchange_amt --> ETH amount to be coverted to USDT
         var exchange_amt = balance - transactionFeeETHAmt;
-        logger.log('info','balance-transactionFeeETHAmt.....',{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{exchange_amt: exchange_amt}})
+        logger.log('info',`balance-transactionFeeETHAmt.....${exchange_amt}`,{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{exchange_amt: exchange_amt}})
         /* Modified below logic based on inputs from Venkata --> End */
 
         /* added based on discussion with Abhinav -- start */
@@ -156,20 +157,20 @@ export const getUSDT = async (reqBody:any) => {
                 value: ethers.utils.parseUnits(exchange_amt.toFixed(8).toString(), 18)
             });
         
-        logger.log('info','etherContract.estimateGas.swapExactETHForTokens',{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{estimatedGas: gasLimitVal}})
+        logger.log('info',`Gas Limit Value....${gasLimitVal}`,{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{estimatedGas: gasLimitVal}})
         const feeData = await provider.getFeeData();
-        logger.log('info','provider.getFeeData().....',{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{feeData: feeData}})
+        logger.log('info',`Fee Data.....${feeData}`,{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{feeData: feeData}})
         const gasPrice = ethers.utils.formatUnits(feeData.gasPrice, "gwei");
-        logger.log('info','ethers.utils.formatUnits.....',{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{GWEICurrntGasPrice: gasPrice}})
+        logger.log('info',`Gas Price.....${gasPrice}`,{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{GWEICurrntGasPrice: gasPrice}})
 
         const gasFee = gasLimitVal * gasPrice / Math.pow(10, 9) + 0.005;
-        logger.log('info','gasLimitVal * gasPrice / Math.pow(10, 9) + 0.005.....',{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{CurrentGasFee: gasFee}})
+        logger.log('info',`Gas Fee....${gasFee}`,{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{CurrentGasFee: gasFee}})
 
         /* added based on discussion with Abhinav -- end*/
         exchange_amt = exchange_amt - gasFee;
-        logger.log('info','exchange_amt - gasFee.....',{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{FinalETHAmtToBeConverted: exchange_amt}})
+        logger.log('info',`Final ETH amt to be converted...${exchange_amt}`,{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{FinalETHAmtToBeConverted: exchange_amt}})
         
-        logger.log('info','<---Checking if ETH amount > 0 for ETH to USDT conversion...',{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{FinalETHAmtToBeConverted: exchange_amt}})
+        logger.log('info',`<---Checking if ETH amount > 0 for ETH to USDT conversion...${exchange_amt}`,{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{FinalETHAmtToBeConverted: exchange_amt}})
         //console.log('<---Checking logic for sufficient funds for ETH to USDT conversion...')
         //console.log(ethers.utils.parseUnits(exchange_amt.toFixed(8).toString(), 18));
         if (exchange_amt > 0) {
@@ -190,12 +191,12 @@ export const getUSDT = async (reqBody:any) => {
             logger.log('info','Inside Else...FinalETHAmtToBeConverted < 0...',{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{FinalETHAmtToBeConverted: exchange_amt}})
             //console.log('<--Else...Throws error due to in-sufficient funds..');
             //throw new Error('Conversion Failed Due to Insufficient Balance.');
-            logger.log('error','Conversion Failed Due to Insufficient Balance...',{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{FinalETHAmtToBeConverted: exchange_amt}})
+            logger.log('error',`Conversion Failed Due to Insufficient Balance...${exchange_amt}`,{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{FinalETHAmtToBeConverted: exchange_amt}})
             return "Conversion Failed Due to Insufficient Balance.";
         }
     } catch (err: any) {
         //console.log('<--Else...Throws error...since something went wrong');
-        logger.log('error','Something went wrong during conversion...',{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{error: err.reason}})
+        logger.log('error',`Something went wrong during conversion...${err.reason}`,{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{error: err.reason}})
         return err;
     }
 

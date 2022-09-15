@@ -6,11 +6,11 @@ var logger = require('../convert/logger/aws_cloudwatch_logger');
 
 export const getUSDTFromETH = async (reqBody:any) => {
 
-  logger.log('info', `Requesting for ${reqBody.wallAddr} to convert ${reqBody.gasLimit}`, {tags: 'conversionethusdt.getUSDTFromETH'});  
+  logger.log('info', `Requesting to convert ${reqBody.gasLimit}`, {tags: 'conversionethusdt.getUSDTFromETH'});  
 
   var CONVERSION_LOGIC = process.env.CONVERSION_LOGIC || 'YES';
   
-  logger.log('info', `Checking for CONVERSION_LOGIC env variable`, {tags: 'conversionethusdt.getUSDTFromETH', additionalInfo: {CONVERSION_LOGIC: CONVERSION_LOGIC}});
+  logger.log('info', `Checking for CONVERSION_LOGIC env variable...${CONVERSION_LOGIC}`, {tags: 'conversionethusdt.getUSDTFromETH', additionalInfo: {CONVERSION_LOGIC: CONVERSION_LOGIC}});
   if(CONVERSION_LOGIC==='YES')
     return await getUSDT(reqBody);
   else
