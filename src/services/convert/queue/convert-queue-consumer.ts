@@ -1,5 +1,5 @@
 //import { getUSDTFromETH } from "../convert/conversionethusdt";
-import { getUSDTFromETH } from "../conversionethusdt";
+import { getUSDTFromETH } from "../providers/conversionethusdt";
 
 const convertProcess = async (job:any, done:any) => {
   try {
