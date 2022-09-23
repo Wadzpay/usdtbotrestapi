@@ -26,11 +26,13 @@ const logger = new winston.createLogger({
 
 logger.level = process.env.LOG_LEVEL || "silly";
 
+var PROCESS_START_SCRIPT = process.env.START_SCRIPT || 'PRODUCER';
+
 console.log('log level....',logger.level);
 
 var config = {  
   logGroupName: process.env.CLOUDWATCH_GROUP_NAME,
-  logStreamName: `${process.env.QUEUE_NAME}-${process.env.NODE_ENV}`,
+  logStreamName: `${process.env.QUEUE_NAME}-${process.env.NODE_ENV}-${PROCESS_START_SCRIPT}`,
   createLogGroup: false,
   createLogStream: true,
   awsConfig: AWSConfig,
