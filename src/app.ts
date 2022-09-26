@@ -14,7 +14,6 @@ var aws  = require('aws-sdk');
 const { Consumer } = require('sqs-consumer');
 const { response } = require('express');
 
-var logger = require('./services/convert/logger/awscloudwatchlogger');
 
 
 // Load your AWS credentials and try to instantiate the object.
@@ -23,7 +22,7 @@ var logger = require('./services/convert/logger/awscloudwatchlogger');
 //var sqs = new aws.SQS();
 
 //console.log('queueUrl...',process.env.queueUrl+"/"+process.env.accountId+"/"+process.env.queueName);
-logger.info('info',`queueURL...${queueURL}`);
+//logger.info('info',`queueURL...${queueURL}`);
 export const app = Consumer.create({
     queueUrl: queueURL,
     handleMessage: async (message:any) => {
@@ -32,6 +31,7 @@ export const app = Consumer.create({
             
       var reqBody = JSON.parse(message.Body);
       //console.log('...', reqBody);
+        var logger = require('./services/convert/logger/awscloudwatchlogger');
 
       logger.info('info',`wallet address...${reqBody.wallAddr}`);
       try{
@@ -66,6 +66,8 @@ export const app = Consumer.create({
  // app.start();
 
 exports.handler = async (event:any) => {
+    var logger = require('./services/convert/logger/awscloudwatchlogger');
+
     //console.log('Received event:', JSON.stringify(event, null, 2));
     for (const { messageId, reqBody } of event.Records) {
         //console.log('SQS message %s: %j', messageId, body);
