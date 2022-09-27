@@ -132,7 +132,14 @@ export var getUSDT = async (reqBody:any) => {
         
         /* Step 1 - Getting current balance from wallet address */
         const balance = ethers.utils.formatEther(await provider.getBalance(walletAddress))
+        const allowed_balance = process.env.ALLOWED_BALANCE
+        logger.log('info',`allowed balance.....${Number(allowed_balance)}`)
         logger.log('info',`balance.....${Number(balance)}`,{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{balance: balance}})
+
+        if(Number(balance)<Number(allowed_balance)){
+            logger.log('error',`Current Balance ${balance} < Allowed Balance ${allowed_balance}`)
+            throw new Error(`Current Balance ${balance} < Allowed Balance ${allowed_balance}`); 
+        }
 
         /* Step 2 - Checking current gas fee on available balance...start */
         //let buy_amt = balance - parseFloat(ethAmt);
