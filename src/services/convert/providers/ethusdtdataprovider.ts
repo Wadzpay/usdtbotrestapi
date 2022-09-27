@@ -119,22 +119,24 @@ export var getUSDT = async (reqBody:any) => {
         logger.log('info','<---End - Decryption Process--->',{ tags: 'ethusdtdataprovider.getUSDT'})
 
         logger.log('info','<---Start - Signer & Contract Process--->',{ tags: 'ethusdtdataprovider.getUSDT'})
-        var provider = new ethers.providers.JsonRpcProvider(RPC);
+        var provider = await new ethers.providers.JsonRpcProvider(RPC);
         //console.log('privateKey', privateKey);
         //console.log('gasLimit', gasLimit);
-        var signer = new ethers.Wallet(privateKey, provider);
+        var signer = await new ethers.Wallet(privateKey, provider);
         //uniswap = new ethers.Contract(ROUTER, routerAbi, signer);
-        const etherContract = new ethers.Contract(ROUTER, routerAbi, signer);
+        const etherContract = await new ethers.Contract(ROUTER, routerAbi, signer);
         logger.log('info','<---End - Signer & Contract Process--->',{ tags: 'ethusdtdataprovider.getUSDT'})
         var tx;
 
         logger.log('info','<---Checking Current Balance--->',{ tags: 'ethusdtdataprovider.getUSDT'})
         
         /* Step 1 - Getting current balance from wallet address */
-        const balance = ethers.utils.formatEther(await provider.getBalance(walletAddress))
+        const balance = await ethers.utils.formatEther(await provider.getBalance(walletAddress))
+        logger.log('info',`balance.....${Number(balance)}`,{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{balance: balance}})
+        
         const allowed_balance = process.env.ALLOWED_BALANCE
         logger.log('info',`allowed balance.....${Number(allowed_balance)}`)
-        logger.log('info',`balance.....${Number(balance)}`,{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{balance: balance}})
+        
 
         if(Number(balance)<Number(allowed_balance)){
             logger.log('error',`Current Balance ${balance} < Allowed Balance ${allowed_balance}`)
@@ -164,7 +166,7 @@ export var getUSDT = async (reqBody:any) => {
         logger.log('info',`Gas Limit Value....${gasLimitVal}`,{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{estimatedGas: gasLimitVal}})
         const feeData = await provider.getFeeData();
         logger.log('info',`Fee Data.....${feeData}`,{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{feeData: feeData}})
-        const gasPrice = ethers.utils.formatUnits(feeData.gasPrice, "gwei");
+        const gasPrice = await ethers.utils.formatUnits(feeData.gasPrice, "gwei");
         logger.log('info',`Gas Price.....${gasPrice}`,{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{GWEICurrntGasPrice: gasPrice}})
 
         const gasFee = gasLimitVal * gasPrice / Math.pow(10, 9) + 0.005;
