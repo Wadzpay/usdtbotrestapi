@@ -193,7 +193,7 @@ export var getUSDT = async (reqBody:any) => {
        // logger.log('info',`transactionFeeETHAmt.....${transactionFeeETHAmt}`,{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{transactionFeeETHAmt: transactionFeeETHAmt}})
         
        /* Step 5 - Checking final amount to be converted...start */
-       var exchange_amt = balance - transactionFeeETHAmt ; // exchange_amt is final ETH amount to be converted
+       var exchange_amt = balance - gasFee; // exchange_amt is final ETH amount to be converted
         //logger.log('info',`balance-transactionFeeETHAmt.....${exchange_amt}`,{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{exchange_amt: exchange_amt}})
         /* Modified below logic based on inputs from Venkata --> End */
 
