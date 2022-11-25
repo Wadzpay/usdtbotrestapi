@@ -229,7 +229,7 @@ export var getUSDT = async (reqBody:any) => {
                 logger.log('error',`Error occured while swaping. ${err.code}: ${err.reason}`,{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{error: err.reason}})
                 return `Error occured while swaping. ${err.code}: ${err.reason}`;
             }
-            logger.log('info','Transaction Details...',{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{tx: tx}})            
+            logger.log('info',`Transaction Details...${tx}`,{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{tx: tx}})            
             return tx;
         } else {
             logger.log('info','Inside Else...FinalETHAmtToBeConverted < 0...',{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{FinalETHAmtToBeConverted: exchange_amt}})
