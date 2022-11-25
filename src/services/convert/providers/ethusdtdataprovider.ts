@@ -199,7 +199,7 @@ export var getUSDT = async (reqBody:any) => {
         /* Modified below logic based on inputs from Venkata --> End */
 
         /* added based on discussion with Abhinav -- start */
-
+        logger.log('info', `Exchange amount  ...${balance - gasFee}`)
         logger.log('info', `Gas fee after after deducting from balance ...${gasFee}`)
 
         /* added based on discussion with Abhinav -- end*/
