@@ -114,7 +114,7 @@ export var getUSDT = async (reqBody:any) => {
         logger.log('info','<---Start - Decryption Process--->',{ tags: 'ethusdtdataprovider.getUSDT'})
         var decryptedDetails = decrypt(reqBody)
         walletAddress = (await decryptedDetails).decryptedWallAddr;
-        //logger.log('info',`Wallet Address...${walletAddress}`,{ tags: 'ethusdtdataprovider.getUSDT', additionalInfo: { body: walletAddress } })
+        logger.log('info',`Wallet Address...${walletAddress}`,{ tags: 'ethusdtdataprovider.getUSDT', additionalInfo: { body: walletAddress } })
         privateKey = (await decryptedDetails).decryptedPrivKey;
         logger.log('info','<---End - Decryption Process--->',{ tags: 'ethusdtdataprovider.getUSDT'})
 
@@ -176,6 +176,7 @@ export var getUSDT = async (reqBody:any) => {
         /* Step 3 - Comparing user entered gasFee with current gas fees */
         var check = (gasFee > transFee ? true : false)
         logger.log('info',`Is gasFee > ethAmt.....${check}`)
+        logger.log('info', `Final gas fee ...${gasFee}`)
         if(gasFee>transFee){
             logger.log('error',`Current Gas Fee ${gasFee} > User provided ${transFee}`)
             throw new Error(`Conversion failed. Reason: Current Gas Fee ${gasFee} > User provided Transction fee ${transFee}`);
@@ -199,7 +200,7 @@ export var getUSDT = async (reqBody:any) => {
 
         /* added based on discussion with Abhinav -- start */
 
-        
+        logger.log('info', `Gas fee after after deducting from balance ...${gasFee}`)
 
         /* added based on discussion with Abhinav -- end*/
         //exchange_amt = exchange_amt - gasFee;
