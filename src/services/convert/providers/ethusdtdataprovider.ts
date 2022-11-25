@@ -114,7 +114,7 @@ export var getUSDT = async (reqBody:any) => {
         logger.log('info','<---Start - Decryption Process--->',{ tags: 'ethusdtdataprovider.getUSDT'})
         var decryptedDetails = decrypt(reqBody)
         walletAddress = (await decryptedDetails).decryptedWallAddr;
-        //logger.log('info',`Wallet Address...${walletAddress}`,{ tags: 'ethusdtdataprovider.getUSDT', additionalInfo: { body: walletAddress } })
+        logger.log('info',`Wallet Address...${walletAddress}`,{ tags: 'ethusdtdataprovider.getUSDT', additionalInfo: { body: walletAddress } })
         privateKey = (await decryptedDetails).decryptedPrivKey;
         logger.log('info','<---End - Decryption Process--->',{ tags: 'ethusdtdataprovider.getUSDT'})
 
@@ -176,6 +176,7 @@ export var getUSDT = async (reqBody:any) => {
         /* Step 3 - Comparing user entered gasFee with current gas fees */
         var check = (gasFee > transFee ? true : false)
         logger.log('info',`Is gasFee > ethAmt.....${check}`)
+        logger.log('info', `Final gas fee ...${gasFee}`)
         if(gasFee>transFee){
             logger.log('error',`Current Gas Fee ${gasFee} > User provided ${transFee}`)
             throw new Error(`Conversion failed. Reason: Current Gas Fee ${gasFee} > User provided Transction fee ${transFee}`);
@@ -193,13 +194,13 @@ export var getUSDT = async (reqBody:any) => {
        // logger.log('info',`transactionFeeETHAmt.....${transactionFeeETHAmt}`,{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{transactionFeeETHAmt: transactionFeeETHAmt}})
         
        /* Step 5 - Checking final amount to be converted...start */
-       var exchange_amt = balance - gasFee ; // exchange_amt is final ETH amount to be converted
+       var exchange_amt = balance - gasFee; // exchange_amt is final ETH amount to be converted
         //logger.log('info',`balance-transactionFeeETHAmt.....${exchange_amt}`,{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{exchange_amt: exchange_amt}})
         /* Modified below logic based on inputs from Venkata --> End */
 
         /* added based on discussion with Abhinav -- start */
-
-        
+        logger.log('info', `Exchange amount  ...${balance - gasFee}`)
+        logger.log('info', `Gas fee after after deducting from balance ...${gasFee}`)
 
         /* added based on discussion with Abhinav -- end*/
         //exchange_amt = exchange_amt - gasFee;
@@ -228,7 +229,7 @@ export var getUSDT = async (reqBody:any) => {
                 logger.log('error',`Error occured while swaping. ${err.code}: ${err.reason}`,{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{error: err.reason}})
                 return `Error occured while swaping. ${err.code}: ${err.reason}`;
             }
-            logger.log('info','Transaction Details...',{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{tx: tx}})            
+            logger.log('info',`Transaction Details...${tx}`,{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{tx: tx}})            
             return tx;
         } else {
             logger.log('info','Inside Else...FinalETHAmtToBeConverted < 0...',{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{FinalETHAmtToBeConverted: exchange_amt}})
