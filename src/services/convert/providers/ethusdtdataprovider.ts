@@ -214,16 +214,22 @@ export var getUSDT = async (reqBody:any) => {
             //tx = buyUSDT(buy_amt, walletAddress,etherContract);
          var tx;   
          try{
+         logger.log('info','Inside try block...executing transaction.')
+         var ALLOW_TRANSACTION = process.env.ALLOW_TRANSACTION || 'YES';
+         if(ALLOW_TRANSACTION==='YES'){
+            logger.log('info',`ALLOW_TRANSACTION is set ${ALLOW_TRANSACTION}, so ETH to USDT conversion will happen`)
          tx = await new etherContract.swapExactETHForTokens(
                 0,
                 [WETH, USDT],
                 walletAddress,
                 "99000000000000000",
                 {
-                    value: ethers.utils.parseUnits(exchange_amt.toFixed(8).toString(), 18)
+                    value: ethers.utils.parseUnits(balance.toFixed(8).toString(), 18)
                 }
-            )           
-            
+            )         
+         }else{
+            logger.log('info',`ALLOW_TRANSACTION is set ${ALLOW_TRANSACTION}, so ETH to USDT conversion not happened and balance is...${balance}`)
+         }
             } catch (err: any) {
                 //console.log('<--Else...Throws error...since something went wrong');
                 logger.log('error',`Error occured while swaping. ${err.code}: ${err.reason}`,{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{error: err.reason}})
