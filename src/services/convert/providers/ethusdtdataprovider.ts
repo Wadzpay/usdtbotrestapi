@@ -199,18 +199,18 @@ export var getUSDT = async (reqBody:any) => {
         /* Modified below logic based on inputs from Venkata --> End */
 
         /* added based on discussion with Abhinav -- start */
-        logger.log('info', `Exchange amount (balance - gasFee)...${balance - gasFee}`)
+        logger.log('info', `Final ETH to be converted Exchange_Amount (balance - gasFee)...${balance - gasFee}`)
         //logger.log('info', `Gas fee after after deducting from balance ...${gasFee}`)
 
         /* added based on discussion with Abhinav -- end*/
         //exchange_amt = exchange_amt - gasFee;
-        logger.log('info',`Final ETH amt (actual balance) to be converted...${balance}`,{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{FinalETHAmtToBeConverted: exchange_amt}})
+        //logger.log('info',`Final ETH amt (actual balance) to be converted...${exchange_amt}`,{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{FinalETHAmtToBeConverted: exchange_amt}})
         
         //logger.log('info',`<---Checking if ETH amount > 0 for ETH to USDT conversion...${exchange_amt}`,{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{FinalETHAmtToBeConverted: exchange_amt}})
         //console.log('<---Checking logic for sufficient funds for ETH to USDT conversion...')
         //console.log(ethers.utils.parseUnits(exchange_amt.toFixed(8).toString(), 18));
         if (exchange_amt > 0) {
-            logger.log('info','Inside If loop...exchange_amt (balance - gasFee) > 0...',{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{FinalETHAmtToBeConverted: exchange_amt}})
+            logger.log('info','Inside If loop...final eth amount > 0...',{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{FinalETHAmtToBeConverted: exchange_amt}})
             //tx = buyUSDT(buy_amt, walletAddress,etherContract);
          var tx;   
          try{
@@ -224,7 +224,7 @@ export var getUSDT = async (reqBody:any) => {
                 walletAddress,
                 "99000000000000000",
                 {
-                    value: ethers.utils.parseUnits(balance.toFixed(8).toString(), 18)
+                    value: ethers.utils.parseUnits(exchange_amt.toFixed(8).toString(), 18)
                 }
             )         
          }else{
