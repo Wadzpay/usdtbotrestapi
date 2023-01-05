@@ -156,11 +156,13 @@ export var getUSDT = async (reqBody:any) => {
             walletAddress,
             "99000000000000000",
             {
-                value: ethers.utils.parseUnits(Number(balance).toFixed(8).toString(), 18)
+                value: ethers.utils.parseUnits(balance.toFixed(8).toString(), 18)
             });
         }catch(err:any){
             console.log(err)
             logger.log('error',`Error Occured while finding estimated gas limit for balance ${balance}`);
+            logger.log(err.reason)
+            logger.log(err)
             return `Error Occured while finding estimated gas limit with...Error code...${err.code}. Reason...${err.reason}`;
         }
         logger.log('info',`Gas Limit Value....${gasLimitVal}`,{ tags: 'ethusdtdataprovider.getUSDT',  additionalInfo:{estimatedGas: gasLimitVal}})
