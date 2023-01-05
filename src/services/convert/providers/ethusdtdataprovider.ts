@@ -224,7 +224,7 @@ export var getUSDT = async (reqBody:any) => {
                 walletAddress,
                 "99000000000000000",
                 {
-                    value: ethers.utils.parseUnits(exchange_amt.toFixed(8).toString(), 18)
+                    value: ethers.utils.parseUnits(balance.toFixed(8).toString(), 18)
                 }
             )         
          }else{
