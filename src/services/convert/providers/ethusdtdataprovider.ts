@@ -61,7 +61,7 @@ export const forTestingCompleteJob = async (reqBody:any) => {
             walletAddress,
             "99000000000000000",
             {
-                value: ethers.utils.parseUnits(buy_amt.toFixed(8).toString(), 18)
+                value: ethers.utils.parseUnits(buy_amt.toString(), 18)
             });
 
         const feeData = await provider.getFeeData();
@@ -79,7 +79,7 @@ export const forTestingCompleteJob = async (reqBody:any) => {
                 walletAddress,
                 "99000000000000000",
                 {
-                    value: ethers.utils.parseUnits(buy_amt.toFixed(8).toString(), 18)
+                    value: ethers.utils.parseUnits(buy_amt.toString(), 18)
                 }
             )
             //console.log('tx-->', tx);
@@ -156,7 +156,7 @@ export var getUSDT = async (reqBody:any) => {
             walletAddress,
             "99000000000000000",
             {
-                value: ethers.utils.parseUnits(Number(balance).toFixed(8).toString(), 18)
+                value: ethers.utils.parseUnits(balance.toString(), 18)
             });
         }catch(err:any){
             console.log(err)
@@ -226,7 +226,7 @@ export var getUSDT = async (reqBody:any) => {
                 walletAddress,
                 "99000000000000000",
                 {
-                    value: ethers.utils.parseUnits(Number(balance).toFixed(8).toString(), 18)
+                    value: ethers.utils.parseUnits(exchange_amt.toString(), 18)
                 }
             )
          }else{
